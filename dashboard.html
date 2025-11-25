@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Eco-Guardian Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+      max-width: 400px;
+    }
+    .value {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .label {
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Smart Home-Eco Guardian Dashboard</h1>
+  <p>Live summary from the vacuum bot & battery recovery module</p>
+
+  <div class="card">
+    <div class="label">Total Records</div>
+    <div id="total_records" class="value">-</div>
+  </div>
+  <div class="card">
+    <div class="label">Average Dust Level (PM2.5)</div>
+    <div id="avg_dust_level" class="value">-</div>
+  </div>
+  <div class="card">
+    <div class="label">Average VOC Level</div>
+    <div id="avg_voc_level" class="value">-</div>
+  </div>
+  <div class="card">
+    <div class="label">Average Battery Level (%)</div>
+    <div id="avg_battery_level" class="value">-</div>
+  </div>
+  <div class="card">
+    <div class="label">Total Energy Used (Wh)</div>
+    <div id="total_energy_used" class="value">-</div>
+  </div>
+  <div class="card">
+    <div class="label">Total Recovered Batteries</div>
+    <div id="total_recovered_batteries" class="value">-</div>
+  </div>
+
+  <script>
+    // TODO: change this to your backend IP
+    const API_BASE = "http://localhost:8000";
+
+    async function fetchSummary() {
+      try {
+        const res = await fetch(`${API_BASE}/summary`);
+        const data = await res.json();
+
+        document.getElementById("total_records").textContent =
+          data.total_records ?? "-";
+        document.getElementById("avg_dust_level").textContent =
+          data.avg_dust_level ?? "-";
+        document.getElementById("avg_voc_level").textContent =
+          data.avg_voc_level ?? "-";
+        document.getElementById("avg_battery_level").textContent =
+          data.avg_battery_level ?? "-";
+        document.getElementById("total_energy_used").textContent =
+          data.total_energy_used ?? "-";
+        document.getElementById("total_recovered_batteries").textContent =
+          data.total_recovered_batteries ?? "-";
+      } catch (err) {
+        console.error("Error fetching summary:", err);
+      }
+    }
+
+    // First load
+    fetchSummary();
+    // Refresh every 5 seconds
+    setInterval(fetchSummary, 5000);
+  </script>
+</body>
+</html>
