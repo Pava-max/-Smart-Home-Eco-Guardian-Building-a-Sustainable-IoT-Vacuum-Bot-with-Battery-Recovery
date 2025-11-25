@@ -1,0 +1,2 @@
+# -Smart-Home-Eco-Guardian-Building-a-Sustainable-IoT-Vacuum-Bot-with-Battery-Recovery
+Many households rely on disconnected devices for cleaning and automation, and there is little visibility into resource-consumption or e-waste (especially lithium-batteries). Robotic vacuum cleaners are great, but they seldom look at sustainability as a primary goal. I wanted to design a system that not only cleans, but also tracks environmental.
